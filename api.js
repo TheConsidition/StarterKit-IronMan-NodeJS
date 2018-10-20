@@ -52,10 +52,10 @@ function get(path, callback) {
 		response.on('end', function() {
 			var data = JSON.parse(content);
 			if (!handleResponseData(data)) {
-				callback(null);
+				callback(data);
 			}
 			if (!handleResponse(response)) {
-				callback(null);
+				callback(data);
 			}
 			callback(data);
 		});
@@ -82,10 +82,10 @@ function post(path, data, callback) {
 		response.on('end', function() {
 			var data = JSON.parse(content);
 			if (!handleResponseData(data)) {
-				callback(null);
+				callback(data);
 			}
 			else if (!handleResponse(response)) {
-				callback(null);
+				callback(data);
 			}
 			else {
 				callback(data);
@@ -128,7 +128,6 @@ function deleteRequest(path, data, callback) {
 	request.write(JSON.stringify(data));
 	request.end();
 }
-
 module.exports = {
 	silence: function() {
 		_silent = true;
@@ -164,6 +163,9 @@ module.exports = {
 				process.exit(1);
 			}
 			log('Getting game: ' + gameId);
+			if (!result.success) {
+				getGame(gameId, callback);
+			}
 			callback(result.gameState);
 		});
 	},
@@ -214,7 +216,11 @@ module.exports = {
 			if (result === null) {
 				process.exit(1);
 			}
-			callback(result.gameState);
+			if (!result.success) {
+				module.exports.getGame(gameId, callback);
+			} else {
+				callback(result.gameState);
+			}
 		});
 	},
 	
@@ -226,7 +232,11 @@ module.exports = {
 			if (result === null) {
 				process.exit(1);
 			}
-			callback(result.gameState);
+			if (!result.success) {
+				module.exports.getGame(gameId, callback);
+			} else {
+				callback(result.gameState);
+			}
 		});
 	},
 	
@@ -236,7 +246,11 @@ module.exports = {
 			if (result === null) {
 				process.exit(1);
 			}
-			callback(result.gameState);
+			if (!result.success) {
+				module.exports.getGame(gameId, callback);
+			} else {
+				callback(result.gameState);
+			}
 		});
 	},
 	
@@ -248,7 +262,11 @@ module.exports = {
 			if (result === null) {
 				process.exit(1);
 			}
-			callback(result.gameState);
+			if (!result.success) {
+				module.exports.getGame(gameId, callback);
+			} else {
+				callback(result.gameState);
+			}
 		});
 	},
 	
@@ -260,7 +278,11 @@ module.exports = {
 			if (result === null) {
 				process.exit(1);
 			}
-			callback(result.gameState);
+			if (!result.success) {
+				module.exports.getGame(gameId, callback);
+			} else {
+				callback(result.gameState);
+			}
 		});
 	},
 
